@@ -31,14 +31,41 @@ def load_data(file_path, ip_col, op_col, sgd_flag=False, mb_flag=False, batch_si
     print(f"An unexpected error occured: {e}") 
 
 
-def gradient_descent(data_gen, mb_flag=False, sgd_flag=False, lr=0.01, epochs=100): 
+def gradient_descent(data_gen, ip_col, op_col, mb_flag=False, sgd_flag=False, lr=0.01, epochs=100): 
   """Perform Gradient Descent""" 
   w = 0 
   b = 0 
   loss = []  #Need Loss to be handled like a dataframe 
+  
   for epoch in range(epochs): 
-    dw = 0 
-    db = 0 
+    epoch_loss = 0  
+    n_samples = 0 
+    data_gen_epoch = data_gen() 
+
+    for chunk in data_gen_epoch:
+      X = chunk[ip_col].values 
+      y = chunk[op_col].values 
+      #h(x) = w*X + b 
+      #MLS = 1/n_samples * sum()
+      h_x = w * X + b 
+      dw = np.mean(2*X*(h_x - y)) 
+      db = np.mean(2*(h_x - y)) 
+
+      w = w - lr*dw 
+      b = b - lr*db 
+
+      epoch_loss += np.sum((h_x - y)**2)
+      n_samples+= len(X) 
+      if not mb_flag and not sgd_flag:
+        break 
+  
+    avg_loss = epoch_loss / n_samples 
+    loss.append(avg_loss) 
+    print(f"Epoch {epoch+1}/{epochs}, Loss: {avg_loss:.4f}") 
+  return loss 
+
+
+    
     
   
 
