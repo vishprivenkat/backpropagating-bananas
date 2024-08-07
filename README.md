@@ -1,4 +1,4 @@
-# Machine Learning Algorithms from Scratch
+# Backpropagating-Bananas
 
 Implementing fundamental machine learning algorithms using Python and NumPy.
 
