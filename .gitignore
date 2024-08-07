@@ -1,0 +1,23 @@
+# Ignore Python bytecode files
+*.pyc
+
+# Ignore __pycache__ directories
+__pycache__/
+
+# Ignore the entire .pytest_cache directory
+.pytest_cache/
+
+# Ignore .ipynb_checkpoints
+.ipynb_checkpoints/
+
+# Ignore VS Code settings
+.vscode/
+
+# Ignore PyCharm settings
+.idea/
+
+# Ignore environment-specific files
+.env
+
+# Ignore log files
+*.log

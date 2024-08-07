@@ -1,35 +1,35 @@
-# Backpropagating Bananas 🍌
+# Machine Learning Algorithms from Scratch
 
-Going absolute bananas implementing popular machine learning algorithms, from scratch.
+Implementing fundamental machine learning algorithms using Python and NumPy.
 
-## About This Bunch 🍇
+## About This Project
 
-This repository is a fruity adventure through the world of machine learning algorithms. We're peeling back the layers and implementing everything from the ground up, no pre-made smoothies here!
+This repository contains implementations of popular machine learning algorithms built from the ground up. The goal is to provide a deep understanding of these algorithms by coding them without relying on high-level machine learning libraries.
 
-### On the Menu 🥝
+## Algorithms Implemented
 
-- Gradient Descent ("The Banana origins")
-- Linear Regression (aka "The Straight Banana")
-- Logistic Regression ("The Curved Banana")
-- Neural Networks ("The Banana Brain")
-- Decision Trees ("The Fruit Salad Maker")
-- Random Forests ("The Banana Grove")
-- Support Vector Machines ("The Banana Slicer")
+- Gradient Descent
+- Linear Regression
+- Logistic Regression
+- Neural Networks
+- Decision Trees
+- Random Forests
+- Support Vector Machines
 
-### Our Secret Sauce 🍎
+## Technical Details
 
-All implementations are in Python, because snakes and fruits go surprisingly well together!
+- All implementations are in Python, primarily using NumPy for numerical operations.
+- The code aims to be production-ready, including proper error handling and edge case management.
+- Each algorithm is implemented as a Python class, allowing for easy use and integration.
 
-## Warning: Berry Jokes Ahead 🍓
+## Project Structure
 
-Be prepared for an avalanche of fruit puns and berry bad jokes in the comments. We find them appealing, but your mileage may vary.
+Each algorithm has its own directory containing:
+- The main implementation file
+- A test file with unit tests
+- Example usage scripts
+- Documentation explaining the algorithm and implementation details
 
-## Contribute 🍊
+## Learning Resources
 
-Feel free to cherry-pick an algorithm and submit a pull request. Let's make this fruit basket overflow with knowledge!
-
-Remember: In this repo, we don't just eat bananas. We code them, debug them, and occasionally slip on them. Happy coding! 🍌💻
-
-## Credits Where It's Due 🏆
-
-To Claude 3.5 Sonnet. This fruit theme sprang out from a fun conversation with the AI, whilst mindlessly wandering through existential crisis. 
+This project is meant to be educational. Each implementation includes detailed comments and accompanying documentation to explain the algorithms and their implementation details.
