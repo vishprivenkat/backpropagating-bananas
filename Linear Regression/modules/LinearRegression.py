@@ -146,7 +146,13 @@ class LinearRegression:
         print(f"Error in batch_generator: {str(e)}")
 
 
-    def fit(self, batch_size = None, init_method = None, loss_function = None, shuffle = False):
+    def fit(self, 
+            batch_size = None, 
+            init_method = None, 
+            loss_function = None, 
+            shuffle = False, 
+            early_stopping = True
+            ):
       if batch_size:
         self.batch_size = batch_size
       if init_method:
@@ -186,6 +192,7 @@ class LinearRegression:
         if self.n_iters > 0 and epoch % (self.n_iters//10) == 0:
           print(f"Epoch {epoch+1}/{self.n_iters}, Loss: {avg_epoch_loss}")
 
+        
 
       return self.W, self.B, loss
 
