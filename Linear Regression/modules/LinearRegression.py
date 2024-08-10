@@ -106,13 +106,16 @@ class LinearRegression:
           dW = (2/self.batch_size) * np.dot(X.T, (y_pred - y))
           dB = (2/self.batch_size) * np.sum(y_pred - y, axis=0, keepdims=True)
           
-        #elif self.loss_function == 'mae':
+        elif self.loss_function == 'mae':
+          dW = (1/self.batch_size) * np.dot(X.T, np.sign(y_pred - y))
+          dB = (1/self.batch_size) * np.sum(np.sign(y_pred-y), axis = 0, keepdims = True) 
 
         #elif self.loss_function == 'rmse':
         else:
           raise ValueError(f"Unsupported Loss Function: {self.loss_function}")
       except Exception as e:
         print(f"Error in computing gradients: {str(e)}")
+        raise 
       return dW, dB
 
 
@@ -125,6 +128,7 @@ class LinearRegression:
        
         self.W -= self.learning_rate * dW.T
         self.B -= self.learning_rate * dB.T
+
       except Exception as e:
         print(f"Error in updating parameters: {str(e)}")
 
@@ -182,7 +186,12 @@ class LinearRegression:
 
           #Update Weights
           dW, dB = self.compute_gradients(batch_X, batch_y, y_pred)
-          self.update_parameters(dW, dB)
+          if not isinstance(dW, np.ndarray) or not  isinstance(dB, np.ndarray):
+            raise TypeError("dW and dB must be numpy arrrays")
+          if dW.size == 0 or dB.size == 0:
+            raise ValueError("dW and dB cannot be None")
+          else: 
+            self.update_parameters(dW, dB)
 
           epoch_loss += batch_loss
           num_batches +=1
@@ -201,11 +210,11 @@ class LinearRegression:
       y_pred = self.predict(X_test) 
       loss = self.compute_loss(y_test, y_pred)
       if self.loss_function == 'mse':
-          return self._mse(y, y_pred)
+          return self._mse(y_test, y_pred)
       elif self.loss_function == 'mae':
-          return self._mae(y, y_pred)
+          return self._mae(y_test, y_pred)
       elif self.loss_function == 'rmse':
-          return self._rmse(y, y_pred)
+          return self._rmse(y_test, y_pred)
       
 
 # Usage example:
