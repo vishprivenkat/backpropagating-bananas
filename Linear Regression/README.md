@@ -57,3 +57,14 @@
 ## Fit Method 
 - Brings all the elements together and monitors the loss value for each epoch
 
+## Regularization 
+- **Motivation** 
+  - To fit the training data optimally and yet help build a model that can generalize on unseen data 
+
+- **How is it achieved?** 
+  - Add a penalty factor to the loss function. 
+  - Helps the model to be less reactive/sensitive to noise in samples by preventing overfitting to the training set.  
+
+- **Components in Regularization** 
+  - λ
+    -  
