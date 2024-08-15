@@ -68,16 +68,16 @@ class LinearRegression:
       # print("self.B.shape: ",self.B.shape )
       return np.dot(X, self.W.T) + self.B
 
-    def compute_loss(self, y, y_pred):
+    def compute_loss(self, y, y_pred, loss_function=None):
       try:
         if y.shape != y_pred.shape:
           raise ValueError(f"y.shape : {y.shape} and y_pred.shape: {y_pred.shape} have incompatible dimensions.")
-
-        if self.loss_function == 'mse':
+        
+        if self.loss_function == 'mse' or (loss_function and loss_function == 'mse'):
           return self._mse(y, y_pred)
-        elif self.loss_function == 'mae':
+        elif self.loss_function == 'mae' or (loss_function and loss_function == 'mae'):
           return self._mae(y, y_pred)
-        elif self.loss_function == 'rmse':
+        elif self.loss_function == 'rmse' or (loss_function and loss_function == 'rmse'):
           return self._rmse(y, y_pred)
         else:
           raise ValueError(f"Unsupported Loss Function: {self.loss_function}")
@@ -92,6 +92,29 @@ class LinearRegression:
 
     def _rmse(self, y, y_pred):
       return np.sqrt(np.mean(y-y_pred)**2)
+  
+    def _r2(self, y, y_pred):
+      try: 
+        y= np.asarray(y)
+        y_pred = np.asarray(y_pred)
+        if y.size == 0 or y_pred.size ==0:
+          raise ValueError("y or y_pred input arrays cannot be empty.") 
+        if y.shape != y_pred.shape:
+          raise ValueError(f"y.shape : {y.shape} and y_pred.shape: {y_pred.shape} have incompatible dimensions.")
+        
+        y_mean = np.mean(y) 
+        total_sum_sq = np.sum((y - y_mean)**2) 
+        if total_sum_sq == 0:
+          return 1.0 if np.allclose(y, y_pred) else 0.0
+        
+        residual_sum_sq = np.sum((y-y_pred)**2) 
+        r2 = 1 - (residual_sum_sq/total_sum_sq) 
+        return r2 
+      
+      except Exception as e:
+        print(f"Error in computing r2: {str(e)}")
+
+ 
 
     def compute_gradients(self, X, y, y_pred):
       dW = None
@@ -206,15 +229,16 @@ class LinearRegression:
       return self.W, self.B, loss
 
 
-    def evaluate(self, X_test, y_test):
+    def evaluate(self, X_test, y_test, loss_function = None, pred = False):
       y_pred = self.predict(X_test) 
-      loss = self.compute_loss(y_test, y_pred)
-      if self.loss_function == 'mse':
-          return self._mse(y_test, y_pred)
-      elif self.loss_function == 'mae':
-          return self._mae(y_test, y_pred)
-      elif self.loss_function == 'rmse':
-          return self._rmse(y_test, y_pred)
+      loss = self.compute_loss(y_test, y_pred, loss_function = loss_function) 
+      if pred: 
+        return loss, y_pred 
+      return loss 
+    
+
+
+
       
 
 # Usage example:
