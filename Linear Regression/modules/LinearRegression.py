@@ -10,6 +10,7 @@ class LinearRegression:
       self.init_method = init_method
       self.batch_size = batch_size
       self.loss_function = loss_function
+      self.r2_ = None
 
     def load_dataset(self, X, y):
         '''
@@ -232,12 +233,17 @@ class LinearRegression:
     def evaluate(self, X_test, y_test, loss_function = None, pred = False):
       y_pred = self.predict(X_test) 
       loss = self.compute_loss(y_test, y_pred, loss_function = loss_function) 
+      self.r2_ = self._r2(y_test, y_pred)
       if pred: 
         return loss, y_pred 
       return loss 
-    
-
-
+  
+    def get_r2_score(self):
+      if hasattr(self, 'r2_'):
+          print(self.r2_)
+          return self.r2_ 
+      else:
+          raise AttributeError("R2 score hasn't been calculated yet. Call evaluate() first.")
 
       
 
